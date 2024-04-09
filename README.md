@@ -17,4 +17,4 @@ The program uses AES-256 encryption, the key is generated randomly with each enc
 After encryption, the console gives you a key that you need to copy and save.
 During decryption, the console will ask you for the key that was used to encrypt the file.
 
-![](https://github.com/zbirow/Shz/edit/main/Shz.gif)
+![](https://github.com/zbirow/Shz/blob/main/Shz.gif)
