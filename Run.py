@@ -1,4 +1,5 @@
 import argparse
+import base64
 from cryptography.fernet import Fernet
 
 def generate_key():
@@ -24,17 +25,24 @@ def main():
     parser = argparse.ArgumentParser(description="File encryption and decryption using AES.")
     parser.add_argument("-en", action="store_true", help="Encryption")
     parser.add_argument("-de", action="store_true", help="Decryption")
+    parser.add_argument("-k", "--key", help="Encryption/Decryption key")
     parser.add_argument("input_file", help="The name of the input file")
     parser.add_argument("output_file", help="The name of the output file")
     args = parser.parse_args()
 
     if args.en:
-        key = generate_key()
+        if args.key:
+            key = base64.urlsafe_b64encode(args.key.encode())
+        else:
+            key = generate_key()
         encrypt_file(key, args.input_file, args.output_file)
         print("Encryption complete.")
         print("Key: ", key.decode())  # Wypisz klucz dla informacji
     elif args.de:
-        key = input("Enter the decryption key: ").encode()
+        if args.key:
+            key = base64.urlsafe_b64encode(args.key.encode())
+        else:
+            key = input("Enter the decryption key: ")
         decrypt_file(key, args.input_file, args.output_file)
         print("Decryption complete.")
     else:
